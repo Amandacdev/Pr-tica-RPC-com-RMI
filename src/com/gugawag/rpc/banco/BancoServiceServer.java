@@ -41,15 +41,19 @@ public class BancoServiceServer extends UnicastRemoteObject implements BancoServ
     }
     @Override
     public String pesquisarConta(int contaBusca){
-        if (saldoContas.containsKey(contaBusca)) {
-            //return "Conta encontrada! Saldo: " + saldoContas.get(contaBusca);
+        String contaStr = String.valueOf(contaBusca);
+        if (saldoContas.containsKey(contaStr)) {
+            double saldo = saldoContas.get(contaStr);
+            return "Conta encontrada! Saldo: " + saldo;
         }
         return "Conta não encontrada!";
     }
-
-    public String removerConta(String conta) throws RemoteException {
-        if (saldoContas.containsKey(conta)) {
-            saldoContas.remove(conta);
+    
+    @Override
+    public String removerConta(int contaRemover) {
+        String contaRemoverStr = String.valueOf(contaRemover);
+        if (saldoContas.containsKey(contaRemoverStr)) {
+            saldoContas.remove(contaRemoverStr);
             return "Conta removida com sucesso!";
         }
         return "Conta não encontrada!";
